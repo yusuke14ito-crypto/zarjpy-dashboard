@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZARJPY EMA戦略 勝率チェッカー</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>ZARJPY EMA戦略 勝率チェッカー</h1>
+    <p class="lead">EMAタッチ手法（ロング/ショート反転）を、南アフリカランド/円（ZARJPY）で検証するためのUIです。</p>
+
+    <section class="card">
+      <h2>戦略パラメータ</h2>
+      <div class="grid">
+        <label>
+          通貨ペア
+          <select id="symbol">
+            <option value="ZARJPY" selected>ZARJPY</option>
+            <option value="USDJPY">USDJPY</option>
+            <option value="EURJPY">EURJPY</option>
+          </select>
+        </label>
+
+        <label>
+          EMA期間
+          <input id="emaPeriod" type="number" min="2" max="200" value="20" />
+        </label>
+
+        <label>
+          時間足
+          <select id="timeframe">
+            <option value="5m">5分足</option>
+            <option value="15m" selected>15分足</option>
+            <option value="30m">30分足</option>
+            <option value="1h">1時間足</option>
+            <option value="4h">4時間足</option>
+          </select>
+        </label>
+
+        <label>
+          利確バッファ（pips）
+          <input id="tpBuffer" type="number" min="0" step="0.1" value="5" />
+        </label>
+
+        <label>
+          損切バッファ（pips）
+          <input id="slBuffer" type="number" min="0" step="0.1" value="5" />
+        </label>
+
+        <label>
+          フィルター
+          <select id="priceActionFilter">
+            <option value="off" selected>なし（シンプル）</option>
+            <option value="on">あり（プライスアクション）</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>検証期間</h2>
+      <div class="grid">
+        <label>
+          過去データ開始日
+          <input id="historyStart" type="date" />
+        </label>
+
+        <label>
+          過去データ終了日
+          <input id="historyEnd" type="date" />
+        </label>
+
+        <label>
+          これからの想定期間開始日
+          <input id="forwardStart" type="date" />
+        </label>
+
+        <label>
+          これからの想定期間終了日
+          <input id="forwardEnd" type="date" />
+        </label>
+      </div>
+
+      <button id="runBtn">勝率を試算する</button>
+      <p class="hint">※ 現在はUIモックです。実データ連携時に、ここで入力した条件をAPIへ渡せます。</p>
+    </section>
+
+    <section class="card">
+      <h2>結果</h2>
+      <div class="result-grid">
+        <article>
+          <h3>過去の検証結果</h3>
+          <ul>
+            <li>トレード数: <strong id="pastTrades">-</strong></li>
+            <li>勝率: <strong id="pastWinRate">-</strong></li>
+            <li>PF: <strong id="pastPf">-</strong></li>
+          </ul>
+        </article>
+        <article>
+          <h3>これからの想定結果</h3>
+          <ul>
+            <li>トレード数: <strong id="futureTrades">-</strong></li>
+            <li>勝率: <strong id="futureWinRate">-</strong></li>
+            <li>期待値（R）: <strong id="futureExpectancy">-</strong></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
